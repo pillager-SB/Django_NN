@@ -1,12 +1,31 @@
 from django.shortcuts import render
+import json
 
 
 # Create your views here.
-# Чтобы получить доступ к html файлам используем функциональный подход, создаем контроллер:
+
 def index(request):
-    return render(request, 'mainapp/index.html')
+    content = {
+        'title': 'Geekshop'
+    }
+    return render(request, 'mainapp/index.html', content)
 
 
 def products(request):
-    return render(request, 'mainapp/products.html')
+    categories = [
+        {'name': 'Новинки'},
+        {'name': 'Одежда'},
+        {'name': 'Обувь'},
+        {'name': 'Аксессуары'},
+        {'name': 'Подарки'},
 
+    ]
+    with open('mainapp/fixtures/products.json', encoding='utf-8') as f:
+        cards = json.load(f)
+
+    content = {
+        'title': 'Geekshop - Каталог',
+        'categories': categories,
+        'cards': cards
+    }
+    return render(request, 'mainapp/products.html', content)
