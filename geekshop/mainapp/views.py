@@ -1,8 +1,10 @@
+import os.path
 from django.shortcuts import render
 import json
 
-
 # Create your views here.
+MODULE_DIR = os.path.dirname(__file__)
+
 
 def index(request):
     content = {
@@ -12,6 +14,7 @@ def index(request):
 
 
 def products(request):
+    file_path = os.path.join(MODULE_DIR,'fixtures/products.json')
     categories = [
         {'name': 'Новинки'},
         {'name': 'Одежда'},
@@ -20,8 +23,7 @@ def products(request):
         {'name': 'Подарки'},
 
     ]
-    with open('mainapp/fixtures/products.json', encoding='utf-8') as f:
-        cards = json.load(f)
+    cards = json.load(open(file_path, encoding='utf-8'))
 
     content = {
         'title': 'Geekshop - Каталог',
