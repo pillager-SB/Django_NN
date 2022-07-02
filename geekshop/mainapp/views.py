@@ -15,12 +15,10 @@ def index(request):
 
 
 def products(request):
-    categories = ProductCategories.objects.all().order_by('name')
-    products = Product.objects.all()
 
     content = {
         'title': 'Geekshop - Каталог',
-        'categories': categories,
-        'cards': products
+        'categories': ProductCategories.objects.all().order_by('name'),
+        'cards': Product.objects.all()
     }
     return render(request, 'mainapp/products.html', content)
